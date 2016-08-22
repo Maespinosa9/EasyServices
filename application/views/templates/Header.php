@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="<?php echo base_url(); ?>\assets\js\jquery-3.1.0.min.js"></script>
 	<link href="<?php echo base_url(); ?>\assets\css\bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\assets\css\style.css" />
+	<link href="<?php echo base_url(); ?>\assets\css\style.css" rel="stylesheet">
 </head>
 <body style="background-image:url(<?php echo base_url(); ?>assets/image/fondo.jpg) !important;">
 	<nav class="navbar navbar-default navbar-inverse navbar-static-top" >
@@ -24,7 +24,4 @@
 		</div>
 	</nav>
 <br/><br/>
-<br/>
-<br/>
-<br/>
-<br/>
+
