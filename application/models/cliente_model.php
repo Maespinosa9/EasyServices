@@ -1,11 +1,7 @@
 <?php
-class cliente_model extends Model {
+class cliente_model extends CI_Model {
 
-   function __construct(){
-      parent::Model();
-   }
-   
-   function get_clients(){
+    function get_clients(){
       $ssql = "select * from cliente";
       return mysql_query($ssql);
    }
