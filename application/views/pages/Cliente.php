@@ -11,7 +11,7 @@
 	    	<button type="button" class="btn btn-default">
 	        	<img src="<?php echo base_url(); ?>\assets\image\delete.jpg" class="img-rounded img-header"/>
 	   		</button>
-	 <table class="table table-bordered"  data-search="true">
+	 <table class="table table-striped table-bordered"  data-search="true">
 	 	<thead>
 	 		<th>Documento</th>
 	 		<th>Nombre</th>
@@ -51,5 +51,7 @@
 	 		</tr>
 	 	</tbody>
 	 </table>
+
+	 <?php echo site_url(); ?>
 </div>	
 </div>

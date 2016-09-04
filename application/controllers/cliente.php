@@ -1,28 +1,23 @@
 <?php
-class cliente extends CI_Controller {
-   function index(){
-      //cargo el helper de url, con funciones para trabajo con URL del sitio
-      $this->load->helper('url');
-      
-      // // //cargo el modelo de artículos
+defined('BASEPATH') OR exit('No direct script access allowed');
+class Cliente extends CI_Controller {
+
+   function __construct(){
+      parent::__construct();
       $this->load->model('cliente_model');
-      
-      // // //pido los ultimos artículos al modelo
-      $Clients = $this->Cliente->get_clients();
-      
-      // // //creo el array con datos de configuración para la vista
-      $datos_vista = array('clients' => $Clients);
+   }
+
+
+   function index(){
       $this->load->view('templates/Header');
-      //cargo la vista pasando los datos de configuacion
       $this->load->view('pages/Cliente');
       $this->load->view('templates/Footer');
    }
 
-   function AddClient(){
-      $this->load->view('templates/Header');
-      //cargo la vista pasando los datos de configuacion
-      $this->load->view('pages/EditClient');
-      $this->load->view('templates/Footer');
+   function saveClient(){
+      $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
+      $this->cliente_model->AddCliente($data);
+
    }
 }
 ?>
