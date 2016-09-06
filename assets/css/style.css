@@ -19,3 +19,11 @@ h3{
 .k-textbox {
     width: 100% !important;
 }
+
+.k-dropdown {
+    width: 100% !important;
+}
+
+textarea{
+    resize: none;
+}
