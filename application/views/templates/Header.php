@@ -8,6 +8,7 @@
         <link href="<?= base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="<?= base_url(); ?>assets/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="<?= base_url(); ?>assets/styles/kendo.common.min.css" rel="stylesheet">
+        <link href="<?= base_url(); ?>assets/styles/kendo.default.mobile.min.css" rel="stylesheet">
         <link href="<?= base_url(); ?>assets/styles/kendo.default.min.css" rel="stylesheet">
         <link href="<?= base_url(); ?>assets/styles/kendo.dataviz.min.css" rel="stylesheet">
         <link href="<?= base_url(); ?>assets/styles/kendo.dataviz.default.min.css" rel="stylesheet">
