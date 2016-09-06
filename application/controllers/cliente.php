@@ -61,7 +61,13 @@ class Cliente extends CI_Controller {
         $this->load->view('pages/Cliente');
         $this->load->view('templates/Footer');
     }
-
+    
+    function EditClient() {
+        $this->load->view('templates/Header');
+        $this->load->view('pages/EditClient');
+        $this->load->view('templates/Footer');
+    }
+    
     function saveClient() {
         $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
         $this->cliente_model->AddCliente($data);
