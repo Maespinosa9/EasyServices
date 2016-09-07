@@ -45,37 +45,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Zip $zip
  * @property Image_Upload $image_upload
  * @property Lang_Detect $lang_detect
-
+ * 
  * ******** MODELS *********
  * @property Cliente_model $cliente_model
  */
-class Cliente extends CI_Controller {
+class Ciudad_model extends CI_Model {
+
+    //Constants
+    private $table = 'cod_ciudad';
 
     function __construct() {
         parent::__construct();
-        $this->load->model('cliente_model');
+        $this->load->database();
     }
 
-    function index() {
-        $this->load->view('templates/Header');
-        $this->load->view('pages/Cliente');
-        $this->load->view('templates/Footer');
-    }
-
-    function EditClient() {
-        $this->load->view('templates/Header');
-        $this->load->view('pages/EditClient');
-        $this->load->view('templates/Footer');
-    }
-
-    function saveClient() {
-        $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
-        $this->cliente_model->AddCliente($data);
-    }
-
-    function get() {
-        $arrDatos = $this->cliente_model->getClients();
-        print_r($arrDatos);
+    function getCiudades() {
+        $query = $this->db->get('cod_ciudad');
+        foreach ($query->result() as $row) {
+            $arrr[] = $row;
+        }
+        return json_encode($arrr);
     }
 
 }

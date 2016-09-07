@@ -1,6 +1,17 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+/*
+ * 06/09/2016
+ * Proyecto: EasyServices 
+ * Archivo: empleado.php
+ * Codificación: UTF-8 
+ * Autor: Jaime A. Boyaca Silva :: janbs.eco@hotmail.com
+ * 2016 (C) Janbs.
+ * 
+ * Descripción:
+ * Controlador Empleados
+ */
 
 /**
  * ******** CONTROLLERS *********
@@ -49,33 +60,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * ******** MODELS *********
  * @property Cliente_model $cliente_model
  */
-class Cliente extends CI_Controller {
+class Empleado extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('cliente_model');
+//        $this->load->model('cliente_model');
     }
 
     function index() {
         $this->load->view('templates/Header');
-        $this->load->view('pages/Cliente');
+        $this->load->view('pages/Empleado');
         $this->load->view('templates/Footer');
     }
 
-    function EditClient() {
+    function EditEmpleado() {
         $this->load->view('templates/Header');
-        $this->load->view('pages/EditClient');
+        $this->load->view('pages/EditEmpleado');
         $this->load->view('templates/Footer');
     }
 
     function saveClient() {
         $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
         $this->cliente_model->AddCliente($data);
-    }
-
-    function get() {
-        $arrDatos = $this->cliente_model->getClients();
-        print_r($arrDatos);
     }
 
 }

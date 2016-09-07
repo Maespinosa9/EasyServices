@@ -1,6 +1,6 @@
 <div id="example" class="container" style="opacity: 1; visibility: visible;">
     <section class="well">
-        <h2 class="ra-well-title">Edición de Cliente</h2>
+        <h2 class="ra-well-title">Empleado</h2>
         <hr>
         <form class="form-horizontal" role="form">
             <div class="form-group">
@@ -22,25 +22,31 @@
                 </div>
             </div>
             <div class="form-group">
-
+                <div class="col-sm-2">
+                    <label for="NOMBRES" class="control-label">Nombres</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control k-textbox" id="NOMBRES" placeholder="Nombres Completos" name="NOMBRES">
+                </div>
                 <div class="col-sm-2">
                     <label for="APELLIDOS" class="control-label">Apellidos</label>
                 </div>
                 <div class="col-sm-4">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">@</span>
-                        <input type="text" class="form-control k-textbox" placeholder="Username" aria-describedby="basic-addon1">
-                    </div>
-                    <!--<input type="text" class="form-control k-textbox" id="APELLIDOS" name="-textboxAPELLIDOS" placeholder="Apellidos Completos" >-->
+                    <input type="text" class="form-control k-textbox" id="APELLIDOS" name="-textboxAPELLIDOS" placeholder="Apellidos Completos" >
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-sm-2">
                     <label for="DIRECCION" class="control-label">Dirección</label>
                 </div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control k-textbox" id="DIRECCION" placeholder="Dirección" name="DIRECCION">
+                </div>
+                <div class="col-sm-2">
+                    <label for="CELULAR" class="control-label">Fecha nacimiento</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id='FECHA_NACIMIENTO' class="form-control k-textbox "  name="FECHA_NACIMIENTO" placeholder="Fecha nacimiento" >
                 </div>
             </div>
 
@@ -52,113 +58,63 @@
                     <input type="text" class="form-control k-textbox" id="TELEFONO" placeholder="Tel" name="TELEFONO">
                 </div>
                 <div class="col-sm-2">
-                    <label for="CELULAR" class="control-label">Celular</label>
+                    <label for="E_MAIL" class="control-label">Correo Elecctronico</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="CELULAR" name="CELULAR" placeholder="Cel" >
+                    <input type="email" class="form-control k-textbox" id="TELEFONO" placeholder="Correo Electronico" name="E_MAIL">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-2">
-                    <label for="TIPO_VIVIENDA" class="control-label">Tipo de Vivienda</label>
+                    <label for="ESTADO_CIVIL" class="control-label">Estado Civil</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control k-dropdown" id="TIPO_VIVIENDA"  name="TIPO_VIVIENDA">
+                    <select class="k-widget k-dropdown k-header form-control" id="ESTADO_CIVIL">
+                        <option>Soltero/a</option>
+                        <option>Comprometido/a</option>
+                        <option>Casado/a</option>
+                        <option>Divorciado/a</option>
+                        <option>Viudo/a</option>
+                    </select>
                 </div>
                 <div class="col-sm-2">
-                    <label for="CANT_ADULTOS" class="control-label">Nro. de Adultos</label>
+                    <label for="CANT_HIJOS" class="control-label">Nro. de Hijos</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="CANT_ADULTOS" name="CANT_ADULTOS" >
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <label for="CANT_NIÑOS" class="control-label">Nro. de Niños</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="CANT_NIÑOS"  name="CANT_NIÑOS">
-                </div>
-                <div class="col-sm-2">
-                    <label for="CANT_TER_EDAD" class="control-label">Nro. de 3ra Edad</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="CANT_TER_EDAD" name="CANT_TER_EDAD" >
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <label for="EDAD_NIÑOS" class="control-label">Edad de los Niños</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="EDAD_NIÑOS"  name="EDAD_NIÑOS" placeholder="Edades separadas por coma (,)">
-                </div>
-                <div class="col-sm-2">
-                    <label for="OFERTA_SALARIO" class="control-label">Oferta Salarial</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="OFERTA_SALARIO" name="OFERTA_SALARIO" >
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <label for="DIAS_DESCANSO" class="control-label">Dias Descanso</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="DIAS_DESCANSO"  name="DIAS_DESCANSO" placeholder="Días separados por coma (,)">
-                </div>
-                <div class="col-sm-2">
-                    <label for="MASCOTAS" class="control-label">Cant. Mascotas</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="MASCOTAS" name="MASCOTAS" >
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <label for="HORARIO" class="control-label">Horario</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="HORARIO"  name="HORARIO" placeholder="Horario Laboral">
-                </div>
-                <div class="col-sm-2">
-                    <label for="REQUERIMIENTO" class="control-label">Requerimiento</label>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control k-dropdown" id="REQUERIMIENTO"  name="REQUERIMIENTO">
+                    <input type="number" class="form-control k-textbox" id="CANT_HIJOS" name="CANT_HIJOS" >
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2">
-                    <label for="CORREO_PERSONAL" class="control-label">Correo Personal</label>
+                    <label for="NIVEL_ACADEMICO" class="control-label">Nivel Academico</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="email" class="form-control k-textbox" id="CORREO_PERSONAL" name="CORREO_PERSONAL" >
+                    <input type="text" class="form-control k-textbox" id="NIVEL_ACADEMICO"  name="NIVEL_ACADEMICO" placeholder="Horario Laboral">
                 </div>
                 <div class="col-sm-2">
-                    <label for="CORREO_CORPORATIVO" class="control-label">Correo Corporativo</label>
+                    <label for="TIPO_EMPLEADO" class="control-label">Tipo Empleado</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control k-textbox" id="CORREO_CORPORATIVO"  name="CORREO_CORPORATIVO">
+                    <select class="k-widget k-dropdown k-header form-control" id="TIPO_EMPLEADO">
+                        <option>TIPO 1</option>
+                        <option>TIPO 2</option>
+                        <option>TIPO 3</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2">
-                    <label for="EMPRESA_CONTRATANTE" class="control-label">Empresa Contratante</label>
+                    <label for="EMPRESA_CONTRATANTE" class="control-label">Foto</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="email" class="form-control k-textbox" id="EMPRESA_CONTRATANTE" name="EMPRESA_CONTRATANTE" >
+                    <input name="RUTA_FOTO" id="Foto" type="file" />
                 </div>
                 <div class="col-sm-2">
-                    <label for="CORREO_CORPORATIVO" class="control-label">Observaciones Harck</label>
+                    <label for="CORREO_CORPORATIVO" class="control-label">Huella</label>
                 </div>
                 <div class="col-sm-4">
-                    <textarea class="form-control k-textbox" id="HARCK_OBSERVACIONES" name="HARCK_OBSERVACIONES" ></textarea>
+                    <input name="RUTA_FOTO" id="Huella" type="file" />
                 </div>
             </div>
 
@@ -172,32 +128,10 @@
             </div>
 
             <div class="buttons-wrap">
-                <button class="k-button k-state-default">Cancel</button>
-                <button class="k-button k-state-default">Update</button>
+                <button class="k-button k-state-default">Cancelar</button>
+                <button class="k-button k-state-default">Accion</button>
             </div>
         </form>
     </section>
-    <div class="demo-section k-content">
-        <h4>Products</h4>
-        <input id="products"  class="form-control"style="width: 100%;" />
-    </div>
-
-    <script>
-        $(document).ready(function () {
-            $("#CIUDAD_ID").kendoDropDownList({
-                filter: "startswith",
-                dataTextField: "ProductName",
-                dataValueField: "ProductID",
-                dataSource: {
-                    type: "odata",
-                    serverFiltering: true,
-                    transport: {
-                        read: {
-                            url: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Products",
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-</div>	
+</div>
+<script src="<?= base_url(); ?>assets/js_views/empleado.js" type="text/javascript"></script>

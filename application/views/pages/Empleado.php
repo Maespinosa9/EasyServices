@@ -35,17 +35,14 @@
                 pageSizes: true,
                 buttonCount: 5
             },
-            columns: [{
-                    field: "id",
-                    title: "id",
-                    width: 240
-                }, {
-                    field: "name",
-                    title: "name"
-                }, {
-                    field: "price",
-                    title: "price"
-                }]
+            columns: [{field: "DOC_CLIENTE", title: "Identificación", width: 240},
+                {field: "NOMBRE", title: "Nombre"},
+                {field: "CIUDAD", title: "Ciudad"},
+                {field: "DIRECCION", title: "Dirección"},
+                {field: "TELEFONO", title: "Teléfono"},
+                {field: "CELULAR", title: "Celular"},
+                {field: "OFERTA_SALARIO", title: "Oferta Salarial"},
+                {field: "REQUERIMIENTO", title: "Requerimiento"}]
         });
     });
 </script>
