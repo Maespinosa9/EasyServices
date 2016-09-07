@@ -19,13 +19,14 @@ $(document).ready(function () {
             buttonCount: 5
         },
         columns: [
-            { field: "DOC_CLIENTE", title: "identificación", width: 240},
+            { field: "DOC_CLIENTE", title: "Identificación", width: 240},
             { field: "NOMBRE", title: "Nombre"},
             { field: "CIUDAD", title: "Ciudad" },
             { field: "DIRECCION", title: "Dirección" },
-            { field: "TELEFONO", tilte: "Teléfono" },
-            { field: "CELULAR", title: "CELULAR" },
-            { field: ""}
+            { field: "TELEFONO", title: "Teléfono" },
+            { field: "CELULAR", title: "Celular" },
+            { field: "OFERTA_SALARIO", title: "Oferta Salarial" },
+            { field: "REQUERIMIENTO", title: "Requerimiento" }
         ]
     });
 });
