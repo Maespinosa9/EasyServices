@@ -17,4 +17,10 @@ class Parametro extends CI_Controller {
         $this->load->view('pages/Parametro');
         $this->load->view('templates/Footer');
     }
+    
+    function EditParametro(){
+        $this->load->view('templates/Header');
+        $this->load->view('pages/EditParam');
+        $this->load->view('templates/Footer');
+    } 
 }
