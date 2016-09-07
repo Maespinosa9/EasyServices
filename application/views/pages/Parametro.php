@@ -16,3 +16,5 @@
     </div>
     
 </div>
+
+<script src="<?= base_url(); ?>assets/js_views/parametro.js" type="text/javascript"></script>
