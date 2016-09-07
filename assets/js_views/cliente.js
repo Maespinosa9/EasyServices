@@ -18,16 +18,14 @@ $(document).ready(function () {
             pageSizes: true,
             buttonCount: 5
         },
-        columns: [{
-                field: "id",
-                title: "id",
-                width: 240
-            }, {
-                field: "name",
-                title: "name"
-            }, {
-                field: "price",
-                title: "price"
-            }]
+        columns: [
+            { field: "DOC_CLIENTE", title: "identificación", width: 240},
+            { field: "NOMBRE", title: "Nombre"},
+            { field: "CIUDAD", title: "Ciudad" },
+            { field: "DIRECCION", title: "Dirección" },
+            { field: "TELEFONO", tilte: "Teléfono" },
+            { field: "CELULAR", title: "CELULAR" },
+            { field: ""}
+        ]
     });
 });
