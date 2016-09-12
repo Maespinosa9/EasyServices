@@ -62,9 +62,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Empleado extends CI_Controller {
 
+    private $arrDatos = [
+        'sTitulo' => 'Empleado',
+        'sCallMode' => false,
+        'sControlador' => 'Empleado'];
+
     function __construct() {
         parent::__construct();
-//        $this->load->model('cliente_model');
+        $this->load->model('cliente_model');
     }
 
     function index() {
@@ -82,6 +87,42 @@ class Empleado extends CI_Controller {
     function saveClient() {
         $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
         $this->cliente_model->AddCliente($data);
+    }
+
+    function Form($sCallMode = false) {
+        switch ($sCallMode) {
+            case false:
+//                $this->setAlerta(true, 'CallMode no  se encuentra definido', 'alert-danger', true);
+                redirect('Empleado');
+            case 'Crea':
+                $this->load->view('templates/Header');
+                $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Creación de Empleado']));
+                $this->load->view('templates/Footer');
+                break;
+            case 'Modifica':
+                //Usar Modelo para cargar informacion
+                $this->load->view('templates/Header');
+                $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Modificación de Empleado']));
+                $this->load->view('templates/Footer');
+                break;
+            case 'Elimina':
+                $this->Elimina();
+                break;
+            default :
+                redirect('Empleado');
+        }
+    }
+
+    function Crea() {
+        print_r($_POST);
+    }
+
+    function Modifica() {
+        
+    }
+
+    function Elimina() {
+        
     }
 
 }
