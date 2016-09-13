@@ -77,7 +77,7 @@ class Cliente extends CI_Controller {
         $arrDatos = $this->cliente_model->getClients();
         print_r($arrDatos);
     }
-
+   
 }
 
 ?>
