@@ -1,3 +1,4 @@
+<?= print_r($this->session->userdata('alerta')) ?>
 <div id="EasyContainer" class="EasyContainer">
     <h3><strong>EMPLEADOS</strong></h3>
     <div class="prueba">
@@ -6,7 +7,7 @@
         <div class="col-sm-offset-1 col-sm-10">
             <div id="prin">
                 <div id="toolbar" class="btn-group">
-                    <a href='<?php echo base_url(); ?>Empleado/EditEmpleado' class="btn">
+                    <a href='<?php echo base_url(); ?>Empleado/Form/Crea' class="btn">
                         <img  src="<?php echo base_url(); ?>\assets\image\add.jpg" class="img-rounded img-header"  />
                     </a>
                     <a class="btn"><img src="<?php echo base_url(); ?>\assets\image\edit.jpg" class="img-rounded img-header"/></a>
@@ -23,7 +24,7 @@
             dataSource: {
                 type: "JSON",
                 transport: {
-                    read: "<?= base_url() ?>data.json"
+                    read: "<?= base_url() ?>Empleado/Datos"
                 },
                 pageSize: 20
             },

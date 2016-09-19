@@ -62,11 +62,9 @@ class Ciudad_model extends CI_Model {
     function getCiudades() {
         $query = $this->db->get('cod_ciudad');
         foreach ($query->result() as $row) {
-            $arrr[] = $row;
+            $arr[] = $row;
         }
-        return json_encode($arrr);
+        return json_encode($arr);
     }
 
 }
-
-?>

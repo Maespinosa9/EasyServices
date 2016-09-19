@@ -13,53 +13,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Controlador Empleados
  */
 
-/**
- * ******** CONTROLLERS *********
- * @property CI_DB_active_record $db
- * @property CI_DB_forge $dbforge
- * @property CI_Benchmark $benchmark
- * @property CI_Calendar $calendar
- * @property CI_Cart $cart
- * @property CI_Config $config
- * @property CI_Controller $controller
- * @property CI_Email $email
- * @property CI_Encrypt $encrypt
- * @property CI_Exceptions $exceptions
- * @property CI_Form_validation $form_validation
- * @property CI_Ftp $ftp
- * @property CI_Hooks $hooks
- * @property CI_Image_lib $image_lib
- * @property CI_Input $input
- * @property CI_Language $language
- * @property CI_Loader $load
- * @property CI_Log $log
- * @property CI_Model $model
- * @property CI_Output $output
- * @property CI_Pagination $pagination
- * @property CI_Parser $parser
- * @property CI_Profiler $profiler
- * @property CI_Router $router
- * @property CI_Session $session
- * @property CI_Security $security
- * @property CI_Sha1 $sha1
- * @property CI_Table $table
- * @property CI_Template $template
- * @property CI_Trackback $trackback
- * @property CI_Typography $typography
- * @property CI_Unit_test $unit_test
- * @property CI_Upload $upload
- * @property CI_URI $uri
- * @property CI_User_agent $agent
- * @property CI_Validation $validation
- * @property CI_Xmlrpc $xmlrpc
- * @property CI_Xmlrpcs $xmlrpcs
- * @property CI_Zip $zip
- * @property Image_Upload $image_upload
- * @property Lang_Detect $lang_detect
-
- * ******** MODELS *********
- * @property Cliente_model $cliente_model
- */
 class Empleado extends CI_Controller {
 
     private $arrDatos = [
@@ -69,24 +22,14 @@ class Empleado extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('cliente_model');
+        $this->load->model('empleado_model');
+        $this->load->library('session');
     }
 
     function index() {
-        $this->load->view('templates/Header');
+        $this->load->view('templates/Header', ['alerta' => '']);
         $this->load->view('pages/Empleado');
         $this->load->view('templates/Footer');
-    }
-
-    function EditEmpleado() {
-        $this->load->view('templates/Header');
-        $this->load->view('pages/EditEmpleado');
-        $this->load->view('templates/Footer');
-    }
-
-    function saveClient() {
-        $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
-        $this->cliente_model->AddCliente($data);
     }
 
     function Form($sCallMode = false) {
@@ -114,15 +57,62 @@ class Empleado extends CI_Controller {
     }
 
     function Crea() {
-        print_r($_POST);
+        $sRutaFoto = '';
+        $sRutaHuella = '';
+        $config['upload_path'] = 'assets/uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|pdf';
+        $this->load->library('upload', $config);
+        $sFoto = $this->upload->do_upload('RUTA_FOTO');
+        if (!$sFoto || empty($sFoto)) {
+            $data['archivo'] = $this->upload->display_errors();
+            $this->session->set_tempdata('alerta', $data, 10);
+            redirect('Empleado');
+        } else {
+            $data['archivo'] = $this->upload->data();
+            $sRutaFoto = $data['archivo']['full_path'];
+        }
+        $sHuella = $this->upload->do_upload('RUTA_HUELLA');
+        if (!$sHuella || empty($sHuella)) {
+            $data['archivo'] = $this->upload->display_errors();
+            $this->session->set_tempdata('alerta', $data, 10);
+            redirect('Empleado');
+        } else {
+            $data['archivo'] = $this->upload->data();
+            $sRutaHuella = $data['archivo']['full_path'];
+        }
+
+        $arrDatos = [
+            'DOC_EMPLEADO' => $this->input->post('DOC_EMPLEADO'),
+            'NOMBRES' => $this->input->post('NOMBRES'),
+            'APELLIDOS' => $this->input->post('APELLIDOS'),
+            'DIRECCION' => $this->input->post('DIRECCION'),
+            'TELEFONO' => $this->input->post('TELEFONO'),
+            'CIUDAD_ID' => $this->input->post('CIUDAD_ID'),
+            'FECHA_NACIMIENTO' => $this->input->post('FECHA_NACIMIENTO'),
+            'E_MAIL' => $this->input->post('E_MAIL'),
+            'ESTADO_CIVIL' => $this->input->post('ESTADO_CIVIL'),
+            'CANT_HIJOS' => $this->input->post('CANT_HIJOS'),
+            'NIVEL_ACADEMICO' => $this->input->post('NIVEL_ACADEMICO'),
+            'TIPO_EMPLEADO' => $this->input->post('TIPO_EMPLEADO'),
+            'RUTA_FOTO' => $sRutaFoto,
+            'RUTA_HUELLA' => $sRutaHuella,
+        ];
+        $data['alerta'] = ($this->empleado_model->AddEmpleado($arrDatos)) ? 'OK' : $this->empleado_model->_error_message();
+        $this->session->set_tempdata('alerta', $data, 10);
+//        redirect('Empleado');
     }
 
     function Modifica() {
-        
+        $this->load->view('', '$data');
     }
 
     function Elimina() {
         
+    }
+
+    function Datos() {
+        $arrDatos = $this->empleado_model->getEmpleados();
+        echo ($arrDatos);
     }
 
 }

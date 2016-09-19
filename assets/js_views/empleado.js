@@ -8,7 +8,7 @@ $(document).ready(function () {
             serverFiltering: false,
             transport: {
                 read: {
-                    url: "../Ciudad/getCiudades",
+                    url: "../../Ciudad/getCiudades"
                 }
             }
         }

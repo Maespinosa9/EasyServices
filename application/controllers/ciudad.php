@@ -32,8 +32,7 @@ class Ciudad extends CI_Controller {
 
     function getCiudades() {
         header('Content-Type: application/json');
-        $arrDatos = $this->ciudad_model->getCiudades();
-        echo ($arrDatos);
+        echo $this->ciudad_model->getCiudades();
     }
 
 }

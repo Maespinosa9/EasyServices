@@ -5,13 +5,13 @@
         <?php
         switch ($sCallMode) {
             case false:
-                echo '<form class="form-horizontal" role="form" id="form" method="POST" >';
+                echo '<form class="form-horizontal" enctype="multipart/form-data" role="form" id="form" method="POST" >';
                 break;
             case 'Crea':
-                echo '<form class="form-horizontal" role="form" id="form" method="POST" action="' . base_url() . $sControlador . '/Crea">';
+                echo '<form class="form-horizontal" enctype="multipart/form-data" role="form" id="form" method="POST" action="' . base_url() . $sControlador . '/Crea">';
                 break;
             case 'Modifica':
-                echo '<form class="form-horizontal" role="form" id="form" method="POST" action="' . base_url() . $sControlador . '/Modifica">';
+                echo '<form class="form-horizontal" enctype="multipart/form-data" role="form" id="form" method="POST" action="' . base_url() . $sControlador . '/Modifica">';
                 break;
         }
         ?>
@@ -27,9 +27,6 @@
             </div>
             <div class="col-sm-4">
                 <select class="form-control k-dropdown" id='CIUDAD_ID' name='CIUDAD_ID'>
-                    <option></option>
-                    <option></option>
-                    <option></option>
                 </select>
             </div>
         </div>
@@ -44,7 +41,7 @@
                 <label for="APELLIDOS" class="control-label">Apellidos</label>
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control k-textbox" id="APELLIDOS" name="-textboxAPELLIDOS" placeholder="Apellidos Completos" >
+                <input type="text" class="form-control k-textbox" id="APELLIDOS" name="APELLIDOS" placeholder="Apellidos Completos" >
             </div>
         </div>
         <div class="form-group">
@@ -108,10 +105,10 @@
                 <label for="TIPO_EMPLEADO" class="control-label">Tipo Empleado</label>
             </div>
             <div class="col-sm-4">
-                <select class="k-widget k-dropdown k-header form-control" id="TIPO_EMPLEADO">
-                    <option>TIPO 1</option>
-                    <option>TIPO 2</option>
-                    <option>TIPO 3</option>
+                <select class="k-widget k-dropdown k-header form-control" name="TIPO_EMPLEADO" id="TIPO_EMPLEADO">
+                    <option value="1">TIPO 1</option>
+                    <option value="1">TIPO 2</option>
+                    <option value="1">TIPO 3</option>
                 </select>
             </div>
         </div>
@@ -126,7 +123,7 @@
                 <label for="CORREO_CORPORATIVO" class="control-label">Huella</label>
             </div>
             <div class="col-sm-4">
-                <input name="RUTA_FOTO" id="Huella" type="file" />
+                <input name="RUTA_HUELLA" id="Huella" type="file" />
             </div>
         </div>
 
