@@ -26,4 +26,24 @@ $(document).ready(function () {
             {field: "REQUERIMIENTO", title: "Requerimiento"}
         ]
     });
+    
+    LoadForm();
+    
 });
+
+function LoadForm(){
+    $("#CIUDAD_ID").kendoDropDownList({
+        filter: "startswith",
+        dataTextField: "DESCRIPCION",
+        dataValueField: "ID",
+        dataSource: {
+            type: "JSON",
+            serverFiltering: false,
+            transport: {
+                read: {
+                   url: "../Ciudad/getCiudades",
+                }
+            }
+        }
+    });
+}

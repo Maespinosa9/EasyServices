@@ -58,7 +58,10 @@ class Cliente_model extends CI_Model {
         $this->load->database();
     }
     function getClients() {
+        
     }
+   
+            
     function AddCliente($data) {
         $this->db->insert('cliente', array('DOC_CLIENTE' => $data['DOC_CLIENTE'],
             'NOMBRES' => $data['NOMBRES'],

@@ -183,3 +183,6 @@
 
     </section>
 </div>	
+
+
+<script src="<?= base_url(); ?>assets/js_views/cliente.js" type="text/javascript"></script>

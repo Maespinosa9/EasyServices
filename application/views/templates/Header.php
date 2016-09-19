@@ -19,7 +19,6 @@
         <script src="<?= base_url(); ?>assets/js/kendo.all.min.js"></script>
         <script src="<?= base_url(); ?>assets/js/cultures/kendo.culture.es-CO.min.js" type="text/javascript"></script>
         <script src="<?= base_url(); ?>assets/js/messages/kendo.messages.es-CO.min.js" type="text/javascript"></script>
-        <script src="<?= base_url(); ?>assets/js/alertas.js"></script>
 
     </head>
     <body >
