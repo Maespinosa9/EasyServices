@@ -1,10 +1,6 @@
 $(document).ready(function () {
-    $("#table").kendoGrid({
+    $("#ClientGrid").kendoGrid({
         dataSource: {
-            type: "JSON",
-            transport: {
-                read: "cliente/get"
-            },
             pageSize: 20
         },
         height: 550,
@@ -15,6 +11,7 @@ $(document).ready(function () {
             pageSizes: true,
             buttonCount: 5
         },
+        selectable: true,
         columns: [
             {field: "DOC_CLIENTE", title: "Identificación", width: 240},
             {field: "NOMBRE", title: "Nombre"},
@@ -46,4 +43,37 @@ function LoadForm(){
             }
         }
     });
+    
+//    $("#TIPO_VIVIENDA").kendoDropDownList({
+//        filter: "startswith",
+//        dataTextField: "DESCRIPCION",
+//        dataValueField: "ID_VALOR",
+//        dataSource: {
+//            type: "JSON",
+//            serverFiltering: false,
+//            transport: {
+//                read: {
+//                   url: "../cliente/getCiudades",
+//                }
+//            }
+//        }
+//    });
+LoadData();
 }
+
+function LoadData(){
+    //All Clients Search
+       $.ajax({
+        type: "GET",
+        url: "Cliente/getClients",
+        async: true,
+        success: function (data)
+        {
+            var source = $("#ClientGrid").data("kendoGrid").dataSource;
+            source.data(JSON.parse(data));
+            $("#ClientGrid").data("kendoGrid").setDataSource(source);
+        }
+    });
+    
+}
+
