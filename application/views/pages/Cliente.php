@@ -13,7 +13,7 @@
                     <a class="btn"><img src="<?php echo base_url(); ?>\assets\image\edit.jpg" class="img-rounded img-header"/></a>
                     <a class="btn"><img src="<?php echo base_url(); ?>\assets\image\delete.jpg" class="img-rounded img-header"/></a>
                 </div>
-                <div id="table"></div>
+                <div id="ClientGrid"></div>
             </div>
         </div>
     </div>

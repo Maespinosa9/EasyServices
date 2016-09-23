@@ -30,7 +30,7 @@ class Cliente extends CI_Controller {
         $this->cliente_model->AddCliente($data);
     }
 
-    function get() {
+    function getClients() {
         $arrDatos = $this->cliente_model->getClients();
         echo ($arrDatos);
     }
