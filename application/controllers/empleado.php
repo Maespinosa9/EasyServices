@@ -27,7 +27,11 @@ class Empleado extends CI_Controller {
     }
 
     function index() {
-        $this->load->view('templates/Header', ['alerta' => '']);
+        $arr['alerta'] = '';
+        //Manera para luego hacer el menu dinamico
+        $arr['nav'] = $this->load->view('templates/Nav', [], true);
+        //Puedo necesitar pantallas con header pero sin nav
+        $this->load->view('templates/Header', $arr);
         $this->load->view('pages/Empleado');
         $this->load->view('templates/Footer');
     }
@@ -38,13 +42,19 @@ class Empleado extends CI_Controller {
 //                $this->setAlerta(true, 'CallMode no  se encuentra definido', 'alert-danger', true);
                 redirect('Empleado');
             case 'Crea':
-                $this->load->view('templates/Header');
+                //Manera para luego hacer el menu dinamico
+                $arr['nav'] = $this->load->view('templates/Nav', [], true);
+                //Puedo necesitar pantallas con header pero sin nav
+                $this->load->view('templates/Header', $arr);
                 $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Creación de Empleado']));
                 $this->load->view('templates/Footer');
                 break;
             case 'Modifica':
                 //Usar Modelo para cargar informacion
-                $this->load->view('templates/Header');
+                //Manera para luego hacer el menu dinamico
+                $arr['nav'] = $this->load->view('templates/Nav', [], true);
+                //Puedo necesitar pantallas con header pero sin nav
+                $this->load->view('templates/Header', $arr);
                 $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Modificación de Empleado']));
                 $this->load->view('templates/Footer');
                 break;

@@ -137,7 +137,7 @@
         </div>
 
         <div class="buttons-wrap">
-            <button class="k-button k-state-default">Cancelar</button>
+            <a class="k-button k-state-default" href="javascript:history.back()">Cancelar</a>
             <button class="k-button k-state-default"><?= ($sCallMode == 'Crea') ? 'Guardar' : 'Modificar'; ?></button>
         </div>
         </form>
