@@ -10,6 +10,7 @@ class VerifyLogin extends CI_Controller {
     }
 
     function index() {
+        header('Content-Type: application/json');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('usuario', 'usuario', 'trim|required');
         $this->form_validation->set_rules('contraseña', 'contraseña', 'trim|required|callback_check_database');
@@ -27,10 +28,11 @@ class VerifyLogin extends CI_Controller {
         if ($result) {
             $sess_array = array();
             foreach ($result as $row) {
-                $sess_array = array(
+                $sess_array = [
                     'DOCUMENTO' => $row->DOCUMENTO,
-                    'LOGIN' => $row->LOGIN
-                );
+                    'LOGIN' => $row->LOGIN,
+                    'USUARIO' => $row->NOMBRES . ' ' . $row->APELLIDOS
+                ];
                 $this->session->set_userdata('logged_in', $sess_array);
             }
             return TRUE;

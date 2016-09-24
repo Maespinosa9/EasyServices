@@ -18,12 +18,20 @@ var alert = function (options) {
         close: true,
         reset: true,
         focus: true,
-        tiempo: 0,
-        icon: "close",
-        id: 'default'// despues de 
+        segundos: 2,
+        icon: "glyphicon glyphicon-remove",
+        id: Math.floor((Math.random() * 10) + 1)
     }, options);
-    var id = 'default';
-    var html = '<div id=' + id + ' class="alert alert-' + options.tipo + ' fade in">' + (options.close ? '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>' : '') + (options.icon !== "" ? '<i class="fa-lg fa fa-' + options.icon + '"></i>  ' : '') + options.msj + '</div>';
+    var tipos = {
+        success: '<strong>¡Exito!</strong>',
+        info: '<strong>¡Aviso¡</strong>',
+        warning: '<strong>¡Advertencia!</strong>',
+        danger: '<strong>¡Peligro!</strong>'
+    };
+    var html = '<div id=' + options.id + ' class="alert alert-'
+            + options.tipo + '" role="alert"">'
+            + (options.close ? '<button type="button" class="close"  aria-label="cerrar" data-dismiss="alert" aria-hidden="true">' + (options.icon !== "" ? '<i class="' + options.icon + '"></i>' : '') + '</button>' : '')
+            + tipos[options.tipo] + ' ' + options.msj + '</div>';
     if (options.reset) {
     }
     if (options.lugar == "append") {
@@ -34,13 +42,15 @@ var alert = function (options) {
 
     if (options.focus) {
     }
-    if (options.tiempo > 0) {
+    if (options.segundos > 0) {
         setTimeout(function () {
-            $('#' + id).remove();
-        }, options.closeInSeconds * 1000);
+            $('#' + options.id).fadeTo(1000, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, options.segundos * 1000);
     }
 }
-var sendAjax = function (type, url, data, async) {
+var sendAjax = function (type, url, data, call_back, async) {
     async = typeof async !== 'undefined' ? async : true;
     var Response = null;
     $.ajax({
@@ -50,7 +60,13 @@ var sendAjax = function (type, url, data, async) {
         async: async,
         success: function (data)
         {
-            Response = data;
+            if (async) {
+                call_back(data);
+                Response = {state: true, mensaje: 'Ajax OK'};
+            } else {
+                Response = data;
+            }
+
         }, error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr);
             console.log(xhr.responseText);
