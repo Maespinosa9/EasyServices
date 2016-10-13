@@ -8,20 +8,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Cliente extends CI_Controller {
 
+    private $arr;
     function __construct() {
         parent::__construct();
         $this->load->model('cliente_model');
+        $this->load->library('session');
+        $this->arr['nav'] = $this->load->view('templates/Nav', [], true);
     }
 
     function index() {
-        $this->load->view('templates/Header');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('index', 'refresh');
+        }
+        //Manera para luego hacer el menu dinamico
+        $arrSession = $this->session->get_userdata('logged_in');
+        //Manera para luego hacer el menu dinamico
+        $arr['nav'] = $this->load->view('templates/Nav', ['usuario' => $arrSession['logged_in']['USUARIO']], false);
+        //Puedo necesitar pantallas con header pero sin nav
+        $this->load->view('templates/Header', $this->arr['nav']);
         $this->load->view('pages/Cliente');
         $this->load->view('templates/Footer');
     }
-
+            
     function EditClient() {
-        $this->load->view('templates/Header');
-        $this->load->view('pages/EditClient');
+        $this->load->view('templates/Header', $this->arr['nav']);
+        $this->load->view('pages/EditClient', $Title = "Crear Cliente");
         $this->load->view('templates/Footer');
     }
 

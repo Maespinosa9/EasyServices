@@ -1,3 +1,5 @@
+var TransportObject;
+
 $(document).ready(function () {
     $("#ClientGrid").kendoGrid({
         dataSource: {
@@ -7,9 +9,7 @@ $(document).ready(function () {
         groupable: true,
         sortable: true,
         pageable: {
-            refresh: true,
-            pageSizes: true,
-            buttonCount: 5
+            pageSizes: true
         },
         selectable: true,
         columns: [
@@ -22,6 +22,10 @@ $(document).ready(function () {
             {field: "OFERTA_SALARIO", title: "Oferta Salarial"},
             {field: "REQUERIMIENTO", title: "Requerimiento"}
         ]
+    });
+    //Inicializamos Tabs:
+    $("#tabs").kendoTabStrip({
+        animation: { open: { effects: "fadeIn" } }
     });
     
     LoadForm();
@@ -38,26 +42,11 @@ function LoadForm(){
             serverFiltering: false,
             transport: {
                 read: {
-                   url: "../Ciudad/getCiudades",
+                   url: "Ciudad/getCiudades",
                 }
             }
         }
     });
-    
-//    $("#TIPO_VIVIENDA").kendoDropDownList({
-//        filter: "startswith",
-//        dataTextField: "DESCRIPCION",
-//        dataValueField: "ID_VALOR",
-//        dataSource: {
-//            type: "JSON",
-//            serverFiltering: false,
-//            transport: {
-//                read: {
-//                   url: "../cliente/getCiudades",
-//                }
-//            }
-//        }
-//    });
 LoadData();
 }
 
@@ -67,13 +56,32 @@ function LoadData(){
         type: "GET",
         url: "Cliente/getClients",
         async: true,
-        success: function (data)
+        success: function (response)
         {
             var source = $("#ClientGrid").data("kendoGrid").dataSource;
-            source.data(JSON.parse(data));
+            source.data(JSON.parse(response));
             $("#ClientGrid").data("kendoGrid").setDataSource(source);
         }
     });
     
+}
+
+function EditClient(isEdit){
+    if (!isEdit) {
+        TransportObject = new kendo.data.ObservableObject();
+        TransportObject.CLIENTE_ID = 0;
+        
+    }else{
+        var grid = $("#ClientGrid").data("kendoGrid");
+        var data = grid.dataItem(grid.select());
+        if (data == null) {
+            alert("No ha Seleccionado Ningun registro para editar");
+            return;
+        }
+        TransportObject = new kendo.data.ObservableObject(data);
+        $("#tabs").kendoTabStrip().data("kendoTabStrip").select(1);
+    }
+    
+    kendo.bind($("#form"), TransportObject);
 }
 

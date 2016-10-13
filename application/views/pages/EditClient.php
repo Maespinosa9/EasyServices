@@ -1,6 +1,5 @@
 <div id="example" class="container" style="opacity: 1; visibility: visible;">
     <section class="well">
-        <h2 class="ra-well-title">Edición de Cliente</h2>
         <hr>
         <form class="form-horizontal" role="form">
             <div class="form-group">
