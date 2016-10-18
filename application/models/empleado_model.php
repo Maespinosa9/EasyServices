@@ -30,8 +30,13 @@ class Empleado_model extends CI_Model {
         return $bBan;
     }
 
-    public function getEmpleados() {
-        $query = $this->db->get('empleado');
+    public function getEmpleados($nDocumento = NULL) {
+        if ($nDocumento != NULL) {
+            $arrDatos = ['DOC_EMPLEADO' => $nDocumento];
+            $query = $this->db->get_where($this->table, $arrDatos);
+        } else {
+            $query = $this->db->get($this->table);
+        }
         $arr = [];
         foreach ($query->result() as $row) {
             $arr[] = $row;

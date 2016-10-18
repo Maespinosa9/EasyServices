@@ -97,6 +97,8 @@
         <div class="form-group">
             <div class="col-sm-2">
                 <label for="NIVEL_ACADEMICO" class="control-label">Nivel Academico</label>
+                 <select class="k-widget k-dropdown k-header form-control" name="NIVEL_ACADEMICO" id="NIVEL_ACADEMICO">
+                </select>
             </div>
             <div class="col-sm-4">
                 <input type="text" class="form-control k-textbox" id="NIVEL_ACADEMICO"  name="NIVEL_ACADEMICO" placeholder="Horario Laboral">
@@ -106,9 +108,6 @@
             </div>
             <div class="col-sm-4">
                 <select class="k-widget k-dropdown k-header form-control" name="TIPO_EMPLEADO" id="TIPO_EMPLEADO">
-                    <option value="1">TIPO 1</option>
-                    <option value="1">TIPO 2</option>
-                    <option value="1">TIPO 3</option>
                 </select>
             </div>
         </div>

@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 /**
- * @property CI_DB_active_record $db
+ * 
  * @property Ciudad_model $ciudad_model
  */
 class Ciudad extends CI_Controller {
@@ -24,6 +24,7 @@ class Ciudad extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ciudad_model');
+        
     }
 
     function index() {

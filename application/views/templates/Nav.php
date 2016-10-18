@@ -12,10 +12,7 @@
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active">
-                    <a href="#">Inicio</a>
-                </li>
-                <li>
-                    <a href="#">Configuración</a>
+                    <a href="<?= base_url(); ?>home">Inicio</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

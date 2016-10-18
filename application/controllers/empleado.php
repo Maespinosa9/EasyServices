@@ -1,6 +1,5 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
 /*
  * 06/09/2016
  * Proyecto: EasyServices 
@@ -12,8 +11,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Descripción:
  * Controlador Empleados
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Empleado extends CI_Controller {
+/**
+ * @property empleado_model $empleado_model
+ */
+class Empleado extends JB_Controller {
 
     private $arrDatos = [
         'sTitulo' => 'Empleado',
@@ -23,15 +26,12 @@ class Empleado extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('empleado_model');
-        $this->load->library('session');
     }
 
     function index() {
         $arr['alerta'] = '';
-        //Manera para luego hacer el menu dinamico
-        $arr['nav'] = $this->load->view('templates/Nav', [], true);
         //Puedo necesitar pantallas con header pero sin nav
-        $this->load->view('templates/Header', $arr);
+        $this->load->view('templates/Header', $this->arr);
         $this->load->view('pages/Empleado');
         $this->load->view('templates/Footer');
     }
@@ -42,20 +42,17 @@ class Empleado extends CI_Controller {
 //                $this->setAlerta(true, 'CallMode no  se encuentra definido', 'alert-danger', true);
                 redirect('Empleado');
             case 'Crea':
-                //Manera para luego hacer el menu dinamico
-                $arr['nav'] = $this->load->view('templates/Nav', [], true);
+                $arr['alerta'] = '';
                 //Puedo necesitar pantallas con header pero sin nav
-                $this->load->view('templates/Header', $arr);
+                $this->load->view('templates/Header', $this->arr);
                 $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Creación de Empleado']));
                 $this->load->view('templates/Footer');
                 break;
             case 'Modifica':
-                //Usar Modelo para cargar informacion
-                //Manera para luego hacer el menu dinamico
+                $arrDatos = $this->empleado_model->getEmpleados($_POST['DOC_EMPLEADO']);
                 $arr['nav'] = $this->load->view('templates/Nav', [], true);
-                //Puedo necesitar pantallas con header pero sin nav
-                $this->load->view('templates/Header', $arr);
-                $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Modificación de Empleado']));
+                $this->load->view('templates/Header', $this->arr);
+                $this->load->view('pages/EmpleadoForm', array_merge($this->arrDatos, ['sCallMode' => $sCallMode, 'sTitulo' => 'Modificación de Usuario', 'arrDatos' => $arrDatos]));
                 $this->load->view('templates/Footer');
                 break;
             case 'Elimina':
@@ -74,8 +71,7 @@ class Empleado extends CI_Controller {
         $this->load->library('upload', $config);
         $sFoto = $this->upload->do_upload('RUTA_FOTO');
         if (!$sFoto || empty($sFoto)) {
-            $data['archivo'] = $this->upload->display_errors();
-            $this->session->set_tempdata('alerta', $data, 10);
+            $this->setAlerta(TRUE, $this->upload->display_errors(), 'alert-warning', TRUE);
             redirect('Empleado');
         } else {
             $data['archivo'] = $this->upload->data();
@@ -83,8 +79,7 @@ class Empleado extends CI_Controller {
         }
         $sHuella = $this->upload->do_upload('RUTA_HUELLA');
         if (!$sHuella || empty($sHuella)) {
-            $data['archivo'] = $this->upload->display_errors();
-            $this->session->set_tempdata('alerta', $data, 10);
+            $this->setAlerta(TRUE, $this->upload->display_errors(), 'alert-warning', TRUE);
             redirect('Empleado');
         } else {
             $data['archivo'] = $this->upload->data();
@@ -107,13 +102,31 @@ class Empleado extends CI_Controller {
             'RUTA_FOTO' => $sRutaFoto,
             'RUTA_HUELLA' => $sRutaHuella,
         ];
-        $data['alerta'] = ($this->empleado_model->AddEmpleado($arrDatos)) ? 'OK' : $this->empleado_model->_error_message();
-        $this->session->set_tempdata('alerta', $data, 10);
-//        redirect('Empleado');
+        ($this->empleado_model->AddEmpleado($arrDatos)) ? $this->setAlerta(TRUE, 'Creación exitosa del Empleado', 'alert-info', TRUE) : $this->setAlerta(TRUE, $this->usuario_model->_error_message(), 'alert-warning', TRUE);
+        redirect('Empleado');
     }
 
     function Modifica() {
-        $this->load->view('', '$data');
+        $arrDatos = [
+            'NOMBRES' => $this->input->post('NOMBRES'),
+            'APELLIDOS' => $this->input->post('APELLIDOS'),
+            'DIRECCION' => $this->input->post('DIRECCION'),
+            'CELULAR' => $this->input->post('CELULAR'),
+            'TELEFONO' => $this->input->post('TELEFONO'),
+            'CIUDAD_ID' => $this->input->post('CIUDAD_ID'),
+            'FECHA_NACIMIENTO' => $this->input->post('FECHA_NACIMIENTO'),
+            'EDAD' => $this->input->post('EDAD'),
+            'E_MAIL' => $this->input->post('E_MAIL'),
+            'ESTADO_CIVIL' => $this->input->post('ESTADO_CIVIL'),
+            'CANT_HIJOS' => $this->input->post('CANT_HIJOS'),
+            'NIVEL_ACADEMICO' => $this->input->post('NIVEL_ACADEMICO'),
+            'TIPO_EMPLEADO' => $this->input->post('TIPO_EMPLEADO'),
+            'RUTA_FOTO' => $this->input->post('RUTA_FOTO'),
+            'RUTA_HUELLA' => $this->input->post('RUTA_HUELLA'),
+            'ESTADO' => $this->input->post('ESTADO')
+        ];
+        (($this->usuario_model->UpdateUsuario($arrDatos, $this->input->post('DOCUMENTO'))) > 0) ? $this->setAlerta(TRUE, 'Modificación exitosa del usuario', 'alert-info', TRUE) : $this->setAlerta(TRUE, $this->usuario_model->_error_message(), 'alert-warning', TRUE);
+        redirect('usuario');
     }
 
     function Elimina() {
@@ -121,8 +134,9 @@ class Empleado extends CI_Controller {
     }
 
     function Datos() {
+        header('Content-Type: application/json');
         $arrDatos = $this->empleado_model->getEmpleados();
-        echo ($arrDatos);
+        echo json_encode($arrDatos);
     }
 
 }

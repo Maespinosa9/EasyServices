@@ -7,8 +7,9 @@
  * 2016 (C) Janbs.
  * 
  * Descripción:
- * Clase de generacion de alertas
+ * Clase general de JS
  */
+
 var alert = function (options) {
     options = $.extend(true, {
         contenedor: "",
@@ -18,7 +19,7 @@ var alert = function (options) {
         close: true,
         reset: true,
         focus: true,
-        segundos: 2,
+        tiempo: 0,
         icon: "glyphicon glyphicon-remove",
         id: Math.floor((Math.random() * 10) + 1)
     }, options);
@@ -42,16 +43,16 @@ var alert = function (options) {
 
     if (options.focus) {
     }
-    if (options.segundos > 0) {
+    if (options.tiempo > 0) {
         setTimeout(function () {
             $('#' + options.id).fadeTo(1000, 0).slideUp(500, function () {
                 $(this).remove();
             });
-        }, options.segundos * 1000);
+        }, options.tiempo * 1000);
     }
 }
 var sendAjax = function (type, url, data, call_back, async) {
-    async = typeof async !== 'undefined' ? async : true;
+    async = (typeof async !== 'undefined' || async === null) ? async : true;
     var Response = null;
     $.ajax({
         type: type,
@@ -78,3 +79,134 @@ var sendAjax = function (type, url, data, call_back, async) {
     });
     return Response;
 }
+function PostData(sucessMethod, errorMethod) {
+    var key = CryptoJS.MD5(CryptoJS.enc.Utf8.parse(Pk()));
+    var encrypted = CryptoJS.AES.encrypt(JSON.stringify(GlobalCore.Port), key, {mode: CryptoJS.mode.ECB});
+
+
+    $.ajax({
+        url: GlobalCore.Configuration.RestService,
+        type: "PUT",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify("0" + encrypted.toString()),
+    }).done(function (data) {
+        response = JSON.parse(CryptoJS.AES.decrypt(JSON.parse(data), key, {mode: CryptoJS.mode.ECB}).toString(CryptoJS.enc.Utf8));
+        if (response.MessageType == 1) {//Sucess!! OK
+            if (sucessMethod == null) {
+
+            } else {
+                sucessMethod(response.ResponseObject);
+            }
+        }
+        if (response.MessageType == 0 || response.MessageType == 2) {//Business logic error or warning
+            if (errorMethod == null) {
+                alert(response.Message);
+            } else {
+                errorMethod(response);
+            }
+        }
+
+        if (response.MessageType == 3) {//Authorization error
+            if (sessionActive) {
+                alert(response.Message);
+                sessionActive = false;
+            }
+            Logout();
+            return;
+        }
+
+    }).fail(function (jqXHR, error) {
+        if (jqXHR.status != 0)
+            alert("Ha ocurrido un error en el servidor, consulte a soporte técnico: " + jqXHR.responseText);
+    });
+}
+function GetData(sucessMethod, errorMethod, async) {
+    var key = CryptoJS.MD5(CryptoJS.enc.Utf8.parse(Pk()));
+    var encrypted = CryptoJS.AES.encrypt(JSON.stringify(GlobalCore.Port), key, {mode: CryptoJS.mode.ECB});
+    if (typeof async === 'undefined' || async == null)
+        async = true;
+    $.ajax({
+        url: GlobalCore.Configuration.RestService + "?getData=" + JSON.stringify("0" + encodeURIComponent(encrypted.toString())),
+        type: "GET",
+        async: async,
+        contentType: "application/json; charset=utf-8",
+    }).done(function (data) {
+        response = JSON.parse(CryptoJS.AES.decrypt(JSON.parse(data), key, {mode: CryptoJS.mode.ECB}).toString(CryptoJS.enc.Utf8));
+        if (response.MessageType == 1) {//Sucess!! OK
+            if (sucessMethod == null) {
+
+            } else {
+                sucessMethod(response.ResponseObject);
+            }
+        }
+        if (response.MessageType == 0 || response.MessageType == 2) {//Business logic error or warning
+            if (errorMethod == null) {
+                alert(response.Message);
+            } else {
+                errorMethod(response);
+            }
+        }
+        if (response.MessageType == 3) {//Authorization error
+            if (sessionActive) {
+                alert(response.Message);
+                sessionActive = false;
+            }
+            Logout();
+            return;
+        }
+    }).fail(function (jqXHR, error) {
+        if (jqXHR.status != 0) {
+            alert("Ha ocurrido un error en el servidor, consulte a soporte técnico: ");
+            if (sessionActive)
+                sessionActive = false;
+            Logout();
+        }
+    });
+}
+var getSelectedItem = function () {
+    var grid = $table.data("kendoGrid");
+    var selectedItem = grid.dataItem(grid.select());
+    return selectedItem;
+
+
+}
+var sendPost = function (sModelo, sParametros) {
+    var form = $('<form></form>');
+    form.attr("method", "POST");
+    form.attr("action", sModelo);
+    $.each(sParametros, function (key, value) {
+        var field = $('<input></input>');
+        field.attr("type", "text");
+        field.attr("name", key);
+        field.attr("class", 'hidden');
+        field.attr("value", value);
+        form.append(field);
+    });
+    $(document.body).append(form);
+    form.submit();
+    $(document.body).remove(form);
+
+}
+var $table = $('#table');
+var $botonNuevo = $('.btn-formulario-añadir');
+var $botonModificar = $('.btn-formulario-modificar');
+var $botonEliminar = $('.btn-formulario-eliminar');
+var sControl = $table.data('control');
+$(function () {
+   
+    $botonEliminar.click(function () {
+        var nSelect = getSelectedItem();
+        if (nSelect === null) {
+            alert({contenedor: '.alertas', msj: 'Debe selecionar un registro', lugar: 'prepend', tipo: 'warning', tiempo: 2});
+        } else {
+            sendPost(sControl + '/Elimina', {ID: nSelect[0].ID});
+        }
+    });
+    $botonNuevo.click(function () {
+        sendPost(sControl + '/Form/Crea');
+    });
+
+
+});
+
