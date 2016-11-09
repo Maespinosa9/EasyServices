@@ -10,6 +10,9 @@
                     <a class="btn btn-formulario" >
                         <img src="<?= base_url(); ?>/assets/image/edit.jpg" class="img-rounded img-header"/>
                     </a>
+                    <a class="btn btn-formulario-volver">
+                        <img src="<?= base_url(); ?>/assets/image/Devolver.png" class="img-rounded img-header" alt="VOLVER"/>
+                    </a>
                 </div>
                 <div id="table" data-control='<?= $sControlador ?>'></div>
             </div>
@@ -19,6 +22,7 @@
 <script>
     $(document).ready(function () {
         var $botonHijos = $('.btn-formulario');
+        var $botonVolver = $('.btn-formulario-volver');
         $("#table").kendoGrid({
             dataSource: {
                 transport: {
@@ -46,6 +50,9 @@
         });
         $botonHijos.click(function () {
             document.location.href = 'valor/index/' + getSelectedItem().ID_PARAMETRO;
+        });
+        $botonVolver.click(function () {
+            document.location.href = 'configuracion';
         });
     });
 </script>

@@ -14,7 +14,7 @@
                         <img src="<?= base_url(); ?>/assets/image/edit.jpg" class="img-rounded img-header"/>
                     </a>
                     <a class="btn btn-formulario-volver">
-                        <img src="<?= base_url(); ?>/assets/image/add.jpg" class="img-rounded img-header"/>
+                        <img src="<?= base_url(); ?>/assets/image/Devolver.png" class="img-rounded img-header" alt="VOLVER"/>
                     </a>
                 </div>
                 <div id="table" data-control='<?= $sControlador ?>' data-parametro="<?= $nParametro ?>"></div>

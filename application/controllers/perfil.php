@@ -14,7 +14,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @property valor_model $db
+ * @property perfil_model $perfil_model
  */
 class perfil extends JB_Controller {
 
@@ -63,12 +63,18 @@ class perfil extends JB_Controller {
         echo json_encode($arrDatos);
     }
 
+    function Datos_modulo($IdPerfil = null) {
+        header('Content-Type: application/json');
+        $arrDatos = $this->perfil_model->getPerfilModulo($IdPerfil);
+        echo json_encode($arrDatos);
+    }
+
     function Crea() {
         $arrDatos = [
             'NOMBRE' => $this->input->post('NOMBRE'),
             'DESCRIPCION' => $this->input->post('DESCRIPCION')
         ];
-        ($this->perfil_model->AddPerfil($arrDatos)) ? $this->setAlerta(TRUE, 'Creación exitosa del pefil', 'alert-info', TRUE) : $this->setAlerta(TRUE, $this->valor_model->_error_message(), 'alert-warning', TRUE);
+        ($this->perfil_model->AddPerfil($arrDatos)) ? $this->setAlerta(TRUE, 'Creación exitosa del pefil', 'alert-info', TRUE) : $this->setAlerta(TRUE, $this->perfil_model->_error_message(), 'alert-warning', TRUE);
         redirect('perfil');
     }
 
@@ -78,8 +84,25 @@ class perfil extends JB_Controller {
             'ACTIVO' => $this->input->post('ACTIVO'),
             'NOMBRE' => $this->input->post('NOMBRE')
         ];
-        (($this->perfil_model->UpdatePerfil($arrDatos, $this->input->post('ID_PERFIL'))) > 0) ? $this->setAlerta(TRUE, 'Modificación exitosa del valor', 'alert-info', TRUE) : $this->setAlerta(TRUE, $this->valor_model->_error_message(), 'alert-warning', TRUE);
+        (($this->perfil_model->UpdatePerfil($arrDatos, $this->input->post('ID_PERFIL'))) > 0) ? $this->setAlerta(TRUE, 'Modificación exitosa del valor', 'alert-info', TRUE) : $this->setAlerta(TRUE, $this->perfil_model->_error_message(), 'alert-warning', TRUE);
         redirect('perfil');
+    }
+
+    function AsignaModulo() {
+        header('Content-Type: application/json');
+        $arrDatos = [
+            'ID_PERFIL' => $this->input->post('ID_PERFIL'),
+            'ID_MODULO' => $this->input->post('ID_MODULO')
+        ];
+        if ($this->perfil_model->AddPerfilModulo($arrDatos)) {
+            echo json_encode(['estado' => true, 'mensaje' => 'Modulo asignado exitosamente']);
+        } else {
+            if ($this->perfil_model->error['code'] == 1062) {
+                echo json_encode(['estado' => false, 'mensaje' => 'El modulo ya se encuentra asignado']);
+            } else {
+                echo json_encode(['estado' => false, 'mensaje' => $this->perfil_model->error['message']]);
+            }
+        }
     }
 
 }

@@ -12,6 +12,9 @@
                     </a>
                     <a class="btn"><img src="<?php echo base_url(); ?>\assets\image\edit.jpg" class="img-rounded img-header btn-formulario-modificar"/></a>
                     <a class="btn"><img src="<?php echo base_url(); ?>\assets\image\delete.jpg" class="img-rounded img-header"/></a>
+                    <a class="btn btn-formulario-volver">
+                        <img src="<?= base_url(); ?>/assets/image/Devolver.png" class="img-rounded img-header" alt="VOLVER"/>
+                    </a>
                 </div>
                 <div id="table" data-control='<?= $sControlador ?>'></div>
             </div>
@@ -20,6 +23,7 @@
 </div>
 <script>
     $(document).ready(function () {
+        var $botonVolver = $('.btn-formulario-volver');
         $("#table").kendoGrid({
             dataSource: {
                 transport: {
@@ -52,6 +56,9 @@
             } else {
                 sendPost(sControl + '/Form/Modifica', {DOCUMENTO: nSelect.DOCUMENTO});
             }
+        });
+        $botonVolver.click(function () {
+            document.location.href = 'configuracion';
         });
     });
 </script>

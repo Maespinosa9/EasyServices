@@ -20,7 +20,7 @@ class JB_Controller extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        if (!$this->session->get_userdata('logged_in')) {
+        if (!$this->session->get_userdata('logged_in') || $this->session->get_userdata('logged_in') === null) {
             redirect('index');
         }
         $arrSession = $this->session->get_userdata('logged_in');
