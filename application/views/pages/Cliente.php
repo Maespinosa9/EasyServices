@@ -5,7 +5,7 @@
     <div id="tabs">
          <ul>
             <li class="k-state-active">Clientes</li>
-            <li class="k-state-default">Editar Clientes</li>
+            <li class="k-state-disabled">Editar Clientes</li>
          </ul>
         <div>
             <fieldset id="FilterPanel" style="width: 98%;">
@@ -14,7 +14,7 @@
                 <div class="col-sm-offset-1 col-sm-10">
                     <div id="prin">
                         <div id="toolbar" class="btn-group">
-                            <a href='' class="btn" onclick="EditClient(false)">
+                            <a class="btn" onclick="EditClient(false)">
                                 <img  src="<?php echo base_url(); ?>\assets\image\add.jpg" class="img-rounded img-header"  />
                             </a>
                             <a class="btn" onclick="EditClient(true)"><img src="<?php echo base_url(); ?>\assets\image\edit.jpg" class="img-rounded img-header"/></a>
@@ -109,10 +109,10 @@
 
                         <div class="form-group" style="display: flex;">
                             <div class="col-sm-2">
-                                <label for="CANT_NIÑOS" class="control-label">Nro. de Niños</label>
+                                <label for="CANT_NINIOS" class="control-label">Nro. de Niños</label>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control k-textbox" id="CANT_NIÑOS" data-bind="value: CANT_NIÑOS"  name="CANT_NIÑOS">
+                                <input type="text" class="form-control k-textbox" id="CANT_NINIOS" data-bind="value: CANT_NINIOS"  name="CANT_NINIOS">
                             </div>
                             <div class="col-sm-2">
                                 <label for="CANT_TER_EDAD" class="control-label">Nro. de 3ra Edad</label>
@@ -124,10 +124,10 @@
 
                         <div class="form-group" style="display: flex;">
                             <div class="col-sm-2">
-                                <label for="EDAD_NIÑOS" class="control-label">Edad de los Niños</label>
+                                <label for="EDAD_NINIOS" class="control-label">Edad de los Niños</label>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control k-textbox" id="EDAD_NIÑOS" data-bind="value: EDAD_NIÑOS" name="EDAD_NIÑOS" placeholder="Edades separadas por coma (,)">
+                                <input type="text" class="form-control k-textbox" id="EDAD_NINIOS" data-bind="value: EDAD_NINIOS" name="EDAD_NINIOS" placeholder="Edades separadas por coma (,)">
                             </div>
                             <div class="col-sm-2">
                                 <label for="OFERTA_SALARIO" class="control-label">Oferta Salarial</label>
@@ -205,8 +205,8 @@
                         </div>
 
                         <div class="buttons-wrap">
-                            <button class="k-button k-state-default">Cancel</button>
-                            <button class="k-button k-state-default">Update</button>
+                            <button type="button" class="k-button k-state-default">Cancelar</button>
+                            <button type="button" class="k-button k-state-default" onclick="SaveClient()">Guardar</button>
                         </div>
                     </form>
 

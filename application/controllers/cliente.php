@@ -37,13 +37,20 @@ class Cliente extends CI_Controller {
     }
 
     function saveClient() {
-        $data = array('DOC_CLIENTE' => $this->input->post('DOC_CLIENTE'));
-        $this->cliente_model->AddCliente($data);
+        $data = json_decode($_POST['data']);
+        //$this->cliente_model->AddCliente($data);
+        print_r($data);
+        return $data;
     }
 
     function getClients() {
         $arrDatos = $this->cliente_model->getClients();
         echo ($arrDatos);
+    }
+    
+    function GetTypeHouse(){
+        header('Content-Type: application/json');
+        echo $this->cliente_model->getTipoVivienda();
     }
    
 }

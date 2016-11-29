@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
     //Inicializamos Tabs:
     $("#tabs").kendoTabStrip({
-        animation: { open: { effects: "fadeIn" } }
+        animation: { }
     });
     
     LoadForm();
@@ -47,6 +47,21 @@ function LoadForm(){
             }
         }
     });
+    $("#TIPO_VIVIENDA").kendoDropDownList({
+        filter: "startswith",
+        dataTextField: "DESCRIPCION",
+        dataValueField: "ID_VALOR",
+        dataSource: {
+            type: "JSON",
+            serverFiltering: false,
+            transport: {
+                read: {
+                   url: "Cliente/GetTypeHouse",
+                }
+            }
+        }
+    });
+    
 LoadData();
 }
 
@@ -69,19 +84,54 @@ function LoadData(){
 function EditClient(isEdit){
     if (!isEdit) {
         TransportObject = new kendo.data.ObservableObject();
-        TransportObject.CLIENTE_ID = 0;
-        
+        TransportObject.DOC_CLIENTE = 0;
+        TransportObject.CIUDAD_ID = 0;
+        TransportObject.NOMBRES = "";
+        TransportObject.APELLIDOS= "";
+        TransportObject.DIRECCION= "";
+        TransportObject.BARRIO= "";
+        TransportObject.TELEFONO= "";
+        TransportObject.CELULAR= "";
+        TransportObject.TIPO_VIVIENDA = 0;
+        TransportObject.CANT_ADULTOS= 0;
+        TransportObject.CANT_NINIOS= 0;
+        TransportObject.CANT_TER_EDAD= 0;
+        TransportObject.EDAD_NINIOS= "";
+        TransportObject.OFERTA_SALARIO= "";
+        TransportObject.DIAS_DESCANSO= "";
+        TransportObject.MASCOTAS= "";
+        TransportObject.HORARIO= "";
+        TransportObject.REQUERIMIENTO= "";
+        TransportObject.CORREO_PERSONAL= "";
+        TransportObject.CORREO_CORPORATIVO  = "";
+        TransportObject.EMPRESA_CONTRATANTE = "";
+        TransportObject.HARCK_OBSERVACIONES= "";
+        TransportObject.OBSERVACIONES= "";
     }else{
         var grid = $("#ClientGrid").data("kendoGrid");
         var data = grid.dataItem(grid.select());
-        if (data == null) {
+        if (data === null) {
             alert("No ha Seleccionado Ningun registro para editar");
             return;
         }
         TransportObject = new kendo.data.ObservableObject(data);
-        $("#tabs").kendoTabStrip().data("kendoTabStrip").select(1);
     }
-    
+    //Habilitamos tab
+    var tabStrip = $("#tabs").kendoTabStrip().data("kendoTabStrip");
+    tabStrip.enable(tabStrip.tabGroup.children().eq(1), true);
+    tabStrip.select(1);
+    //Bind Al Form
     kendo.bind($("#form"), TransportObject);
 }
 
+function SaveClient(){
+    var validator = $("#form").kendoValidator().data("kendoValidator");
+    event.preventDefault();
+    if (validator.validate()) {
+        PostData("Cliente/saveClient", { data: TransportObject.toJSON()}, 
+        function(response){ 
+            console.log(response);
+        }, true);
+    
+    }
+}

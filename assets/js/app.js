@@ -79,46 +79,27 @@ var sendAjax = function (type, url, data, call_back, async) {
     });
     return Response;
 }
-function PostData(sucessMethod, errorMethod) {
-    var key = CryptoJS.MD5(CryptoJS.enc.Utf8.parse(Pk()));
-    var encrypted = CryptoJS.AES.encrypt(JSON.stringify(GlobalCore.Port), key, {mode: CryptoJS.mode.ECB});
-
-
+function PostData(url, data, sucessMethod) {
     $.ajax({
-        url: GlobalCore.Configuration.RestService,
-        type: "PUT",
+        url: url,
+        type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify("0" + encrypted.toString()),
-    }).done(function (data) {
-        response = JSON.parse(CryptoJS.AES.decrypt(JSON.parse(data), key, {mode: CryptoJS.mode.ECB}).toString(CryptoJS.enc.Utf8));
-        if (response.MessageType == 1) {//Sucess!! OK
+        data: data,
+    }).done(function (response) {
             if (sucessMethod == null) {
 
             } else {
-                sucessMethod(response.ResponseObject);
+                sucessMethod(response);
             }
         }
-        if (response.MessageType == 0 || response.MessageType == 2) {//Business logic error or warning
-            if (errorMethod == null) {
-                alert(response.Message);
-            } else {
-                errorMethod(response);
-            }
-        }
-
-        if (response.MessageType == 3) {//Authorization error
-            if (sessionActive) {
-                alert(response.Message);
-                sessionActive = false;
-            }
-            Logout();
-            return;
-        }
-
-    }).fail(function (jqXHR, error) {
-        if (jqXHR.status != 0)
-            alert("Ha ocurrido un error en el servidor, consulte a soporte técnico: " + jqXHR.responseText);
+        ).fail(function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr);
+            console.log(xhr.responseText);
+            console.log(xhr.status);
+            console.log(thrownError);
+            console.log(ajaxOptions);
+            Response = {state: false, mensaje: 'Comuniquese con su administrador, error numero' + xhr.status};
     });
 }
 function GetData(sucessMethod, errorMethod, async) {

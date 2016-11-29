@@ -14,15 +14,6 @@ class Cliente_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
-    
-    function getTipoVivienda(){
-         $query = $this->db->get('valor');
-         
-        foreach ($query->result() as $row) {
-            $arrr[] = $row;
-        }
-        return json_encode($arrr);
-    }
             
     function AddCliente($data) {
         $this->db->insert('cliente', array('DOC_CLIENTE' => $data['DOC_CLIENTE'],
@@ -60,6 +51,15 @@ class Cliente_model extends CI_Model {
             $data[] = $row;
         }
         return json_encode($data);
+    }
+    
+    function getTipoVivienda(){
+        
+        $query = $this->db->get_where('valor', array("ID_PARAMETRO" => 1));
+        foreach ($query->result() as $row) {
+            $arr[] = $row;
+        }
+        return json_encode($arr);
     }
 }
 
